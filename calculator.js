@@ -1,3 +1,16 @@
+let buttons = document.querySelectorAll(".button");
+
+buttons.forEach((button) => {
+    console.log(button);
+    button.addEventListener("click", e => {
+        updateOutput(button.textContent);
+    });
+});
+
+function updateOutput(str) {
+    console.log(str);
+}
+
 function Calculator() {
 
     this.operators = {
