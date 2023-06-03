@@ -9,7 +9,7 @@ function Calculator() {
 
     this.calculate = function(expression) {
 
-        let split = str.split(' '),
+        let split = expression.split(' '),
             a = +split[0],
             op = split[1],
             b = +split[2];
