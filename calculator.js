@@ -3,15 +3,23 @@ let buttons = document.querySelectorAll(".button");
 buttons.forEach((button) => {
     console.log(button);
     button.addEventListener("click", e => {
-        updateOutput(button.textContent);
+        calculator.handleButtonPress(button.textContent);
     });
 });
 
-function updateOutput(str) {
-    console.log(str);
-}
+const calculator = new Calculator();
 
 function Calculator() {
+
+    this.a = null;
+    this.b = null;
+    this.op= null;
+
+    this.display = document.querySelector(".output");
+
+    this.updateOutput = function(str) {
+        this.display.textContent = str;
+    }
 
     this.operators = {
         "+": (a,b) => a + b,
@@ -20,13 +28,26 @@ function Calculator() {
         "/": (a,b) => a / b
     };
 
-    this.calculate = function(expression) {
+    this.handleButtonPress = function(buttonStr) {
+        if (buttonStr === "=") {
+            this.calculate();
+        } else if (isNaN(+buttonStr)) {
+            this.op = buttonStr;
+        } else if (this.a ===  null || this.op === null) {
+            this.a = +buttonStr;
+            this.updateOutput(this.a);
+        } else {
+            this.b = +buttonStr;
+            this.updateOutput(this.b);
+        }
+        console.log(this.a);
+        console.log(this.b);
+        console.log(this.op);
+    }
 
-        let split = expression.split(' '),
-            a = +split[0],
-            op = split[1],
-            b = +split[2];
-
-        return this.operators[op](a,b);
+    this.calculate = function() {
+        this.a = (this.operators[this.op](this.a,this.b));
+        console.log(this.a);
+        this.updateOutput(this.a)
     };
 };
