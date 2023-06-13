@@ -10,13 +10,21 @@
 .buttons-row {
     display:flex;
     gap: 4px;
+    justify-content: center;
 }
 .output{
+    font-size: 30px;
+    padding: 12px;
+    display:flex;
+    flex-direction: row-reverse;
     text-align:right;
     padding-right:10vw;
 }
 .button{
+    max-width: 200px;
     flex:1;
+    font-size: 20px;
+    padding: 4px;
     text-align: center;
     background-color: #FFDDDD;
     border-radius: 8px;
