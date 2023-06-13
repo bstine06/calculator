@@ -1,7 +1,6 @@
 let buttons = document.querySelectorAll(".button");
 
 buttons.forEach((button) => {
-    console.log(button);
     button.addEventListener("click", e => {
         calculator.handleButtonPress(button.textContent);
     });
@@ -29,25 +28,40 @@ function Calculator() {
     };
 
     this.handleButtonPress = function(buttonStr) {
-        if (buttonStr === "=") {
+        if (buttonStr === "AC") {
+            this.a = null;
+            this.b = null;
+            this.op = null;
+            this.updateOutput(0);
+        } else if (buttonStr === "=") { // equals pressed
             this.calculate();
-        } else if (isNaN(+buttonStr)) {
+        } else if (isNaN(+buttonStr)) { //operator pressed
+            if (this.a !== null && this.op !== null && this.b !== null) {
+                this.calculate();
+                this.b = null;
+            }
             this.op = buttonStr;
         } else if (this.a ===  null || this.op === null) {
-            this.a = +buttonStr;
+            if (this.a === null) {
+                this.a = buttonStr;
+            } else {
+                this.a += buttonStr;
+            }
+            this.a = +this.a;
             this.updateOutput(this.a);
         } else {
-            this.b = +buttonStr;
+            if (this.b === null) {
+                this.b = buttonStr;
+            } else {
+                this.b += buttonStr;
+            }
+            this.b = +this.b;
             this.updateOutput(this.b);
         }
-        console.log(this.a);
-        console.log(this.b);
-        console.log(this.op);
     }
 
     this.calculate = function() {
         this.a = (this.operators[this.op](this.a,this.b));
-        console.log(this.a);
-        this.updateOutput(this.a)
+        this.updateOutput(this.a);
     };
 };
