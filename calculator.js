@@ -38,7 +38,6 @@ function Calculator() {
         } else if (isNaN(+buttonStr)) { //operator pressed
             if (this.a !== null && this.op !== null && this.b !== null) {
                 this.calculate();
-                this.b = null;
             }
             this.op = buttonStr;
         } else if (this.a ===  null || this.op === null) {
@@ -63,5 +62,6 @@ function Calculator() {
     this.calculate = function() {
         this.a = (this.operators[this.op](this.a,this.b));
         this.updateOutput(this.a);
+        this.b = null;
     };
 };
