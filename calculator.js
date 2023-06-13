@@ -20,6 +20,10 @@ function Calculator() {
         this.display.textContent = str;
     }
 
+    this.roundTo8DecimalPlaces = function(num) {
+        return Math.round(num * Math.pow(10, 8)) / Math.pow(10, 8);
+    }
+
     this.operators = {
         "+": (a,b) => a + b,
         "-": (a,b) => a - b,
@@ -35,7 +39,7 @@ function Calculator() {
             this.updateOutput(0);
         } else if (buttonStr === "=") { // equals pressed
             this.calculate();
-        } else if (isNaN(+buttonStr)) { //operator pressed
+        } else if (buttonStr in this.operators) { //operator pressed
             if (this.a !== null && this.op !== null && this.b !== null) {
                 this.calculate();
             }
@@ -46,7 +50,6 @@ function Calculator() {
             } else {
                 this.a += buttonStr;
             }
-            this.a = +this.a;
             this.updateOutput(this.a);
         } else {
             if (this.b === null) {
@@ -54,13 +57,12 @@ function Calculator() {
             } else {
                 this.b += buttonStr;
             }
-            this.b = +this.b;
             this.updateOutput(this.b);
         }
     }
 
     this.calculate = function() {
-        this.a = (this.operators[this.op](this.a,this.b));
+        this.a = this.roundTo8DecimalPlaces(this.operators[this.op](+this.a,+this.b));
         this.updateOutput(this.a);
         this.b = null;
     };
