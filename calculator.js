@@ -38,7 +38,9 @@ function Calculator() {
             this.op = null;
             this.updateOutput(0);
         } else if (buttonStr === "=") { // equals pressed
-            this.calculate();
+            if (this.a !== null && this.op !== null && this.b !== null) {
+                this.calculate();
+            }
         } else if (buttonStr in this.operators) { //operator pressed
             if (this.a !== null && this.op !== null && this.b !== null) {
                 this.calculate();
@@ -62,6 +64,10 @@ function Calculator() {
     }
 
     this.calculate = function() {
+        if (this.b == 0 && this.op === "/") {
+            this.updateOutput("Dividing by 0 is not allowed in this reality.");
+            return;
+        }
         this.a = this.roundTo8DecimalPlaces(this.operators[this.op](+this.a,+this.b));
         this.updateOutput(this.a);
         this.b = null;
