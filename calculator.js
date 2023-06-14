@@ -21,7 +21,7 @@ function Calculator() {
     }
 
     this.roundTo8DecimalPlaces = function(num) {
-        return Math.round(num * Math.pow(10, 8)) / Math.pow(10, 8);
+        return Math.round(num * Math.pow(10, 10)) / Math.pow(10, 10);
     }
 
     this.operators = {
@@ -31,37 +31,43 @@ function Calculator() {
         "/": (a,b) => a / b
     };
 
+    this.updateNumber = function(num, buttonStr) {
+        if (num === null) {
+            num = buttonStr;
+        } else {
+            if(buttonStr === "." && num.includes(".")) {
+                return num;
+            }
+            num += buttonStr;
+        }
+        this.updateOutput(num);
+        return num;
+    }
+
     this.handleButtonPress = function(buttonStr) {
         if (buttonStr === "AC") {
             this.a = null;
             this.b = null;
             this.op = null;
             this.updateOutput(0);
+            return;
         } else if (buttonStr === "=") { // equals pressed
             if (this.a !== null && this.op !== null && this.b !== null) {
                 this.calculate();
             }
+            return;
         } else if (buttonStr in this.operators) { //operator pressed
             if (this.a !== null && this.op !== null && this.b !== null) {
                 this.calculate();
             }
             this.op = buttonStr;
+            return;
         } else if (this.a ===  null || this.op === null) {
-            if (this.a === null) {
-                this.a = buttonStr;
-            } else {
-                if(buttonStr === "." && this.a.includes(".")) return;
-                this.a += buttonStr;
-            }
-            this.updateOutput(this.a);
+            this.a = this.updateNumber(this.a, buttonStr);
+            return;
         } else {
-            if (this.b === null) {
-                this.b = buttonStr;
-            } else {
-                if(buttonStr === "." && this.b.includes(".")) return;
-                this.b += buttonStr;
-            }
-            this.updateOutput(this.b);
+            this.b = this.updateNumber(this.b, buttonStr);
+            return;
         }
     }
 
