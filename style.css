@@ -1,6 +1,15 @@
+.container {
+    display: flex;
+    justify-content: center;
+    padding-top: 8vh;
+}
 .calculator {
     display:flex;
     flex-direction: column;
+    max-width: 500px;
+    padding: 10px;
+    border: 2px #333 solid;
+    border-radius: 10px;
 }
 .buttons-container {
     display:flex;
@@ -13,18 +22,21 @@
     justify-content: center;
 }
 .output{
-    font-size: 30px;
-    padding: 12px;
+    font-size: 48px;
+    background-color:#333;
+    padding: 4px;
+    margin-bottom: 4px;;
+    color: #FFF;
+    border-radius: 8px;
     display:flex;
-    flex-direction: row-reverse;
+    gap: 4px;
+    justify-content: end;
     text-align:right;
-    padding-right:10vw;
 }
 .button{
-    max-width: 200px;
     flex:1;
     font-size: 20px;
-    padding: 4px;
+    padding: 28px;
     text-align: center;
     background-color: #FFDDDD;
     border-radius: 8px;

@@ -21,7 +21,7 @@ function Calculator() {
     }
 
     this.roundTo8DecimalPlaces = function(num) {
-        return Math.round(num * Math.pow(10, 10)) / Math.pow(10, 10);
+        return Math.round(num * Math.pow(10, 8)) / Math.pow(10, 8);
     }
 
     this.operators = {
@@ -45,7 +45,7 @@ function Calculator() {
     }
 
     this.handleButtonPress = function(buttonStr) {
-        if (buttonStr === "AC") {
+        if (buttonStr === "clear") {
             this.a = null;
             this.b = null;
             this.op = null;
