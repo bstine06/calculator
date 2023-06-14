@@ -50,6 +50,7 @@ function Calculator() {
             if (this.a === null) {
                 this.a = buttonStr;
             } else {
+                if(buttonStr === "." && this.a.includes(".")) return;
                 this.a += buttonStr;
             }
             this.updateOutput(this.a);
@@ -57,6 +58,7 @@ function Calculator() {
             if (this.b === null) {
                 this.b = buttonStr;
             } else {
+                if(buttonStr === "." && this.b.includes(".")) return;
                 this.b += buttonStr;
             }
             this.updateOutput(this.b);
