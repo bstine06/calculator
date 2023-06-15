@@ -1,3 +1,7 @@
+
+
+const calculator = new Calculator();
+
 let buttons = document.querySelectorAll(".button");
 
 buttons.forEach((button) => {
@@ -6,13 +10,15 @@ buttons.forEach((button) => {
     });
 });
 
-const calculator = new Calculator();
+window.addEventListener('keydown', calculator.handleKeyPress);
 
 function Calculator() {
 
     this.a = null;
     this.b = null;
     this.op= null;
+
+    this.keys = ["1","2","3","4","5","6","7","8","9","0","+","-","/","*","."];
 
     this.display = document.querySelector(".output");
 
@@ -85,6 +91,17 @@ function Calculator() {
         } else {
             this.b = this.updateNumber(this.b, buttonStr);
             return;
+        }
+    }
+
+    this.handleKeyPress = function(e) {
+        console.log(e.key);
+        if (calculator.keys.includes(e.key)) {
+            calculator.handleButtonPress(e.key);
+        } else if (e.key === "Backspace") {
+            calculator.handleButtonPress("backspace");
+        } else if (e.key === "Enter") {
+            calculator.handleButtonPress("=");
         }
     }
 
