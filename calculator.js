@@ -2,11 +2,11 @@
 
 const calculator = new Calculator();
 
-let buttons = document.querySelectorAll(".button");
+const buttons = document.querySelectorAll(".button");
 
 buttons.forEach((button) => {
     button.addEventListener("click", e => {
-        calculator.handleButtonPress(button.textContent);
+        calculator.handleButtonPress(button);
     });
 });
 
@@ -64,7 +64,9 @@ function Calculator() {
         return num;
     }
 
-    this.handleButtonPress = function(buttonStr) {
+    this.handleButtonPress = function(button) {
+        button.classList.add('pressing');
+        const buttonStr = button.textContent;
         if (buttonStr === "clear") {
             this.a = null;
             this.b = null;
@@ -95,13 +97,12 @@ function Calculator() {
     }
 
     this.handleKeyPress = function(e) {
-        console.log(e.key);
         if (calculator.keys.includes(e.key)) {
             calculator.handleButtonPress(e.key);
         } else if (e.key === "Backspace") {
             calculator.handleButtonPress("backspace");
         } else if (e.key === "Enter") {
-            calculator.handleButtonPress("=");
+            calculator.handleButtonPress("backspace");
         }
     }
 
