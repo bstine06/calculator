@@ -19,11 +19,11 @@ body {
 .buttons-container {
     display:flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 2px;
 }
 .buttons-row {
     display:flex;
-    gap: 4px;
+    gap: 2px;
     justify-content: center;
 }
 .output{
@@ -42,7 +42,7 @@ body {
 .button{
 
     box-sizing:border-box;
-    border: 1px white solid;
+    border: 2px #666 solid;
     flex:1;
     font-size: 20px;
     padding: 28px;
@@ -60,5 +60,5 @@ body {
 }
 
 .pressing {
-    border: 1px #333 solid;
+    background-color: paleturquoise;
 }

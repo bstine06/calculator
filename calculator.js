@@ -1,24 +1,25 @@
 
 
-const calculator = new Calculator();
 
 const buttons = document.querySelectorAll(".button");
 
+const calculator = new Calculator(buttons);
+
+
 buttons.forEach((button) => {
     button.addEventListener("click", e => {
-        calculator.handleButtonPress(button);
+        calculator.handleButtonPress(button.textContent);
     });
 });
 
 window.addEventListener('keydown', calculator.handleKeyPress);
 
-function Calculator() {
+function Calculator(keys) {
 
     this.a = null;
     this.b = null;
     this.op= null;
-
-    this.keys = ["1","2","3","4","5","6","7","8","9","0","+","-","/","*","."];
+    this.keys = keys;
 
     this.display = document.querySelector(".output");
 
@@ -64,9 +65,12 @@ function Calculator() {
         return num;
     }
 
-    this.handleButtonPress = function(button) {
-        button.classList.add('pressing');
-        const buttonStr = button.textContent;
+    this.handleButtonPress = function(buttonStr) {
+        const thisKey = document.querySelector(`div[data-key="${buttonStr}"]`);
+        thisKey.classList.add('pressing');
+        setTimeout(function() {
+            thisKey.classList.remove('pressing');
+          }, 200);
         if (buttonStr === "clear") {
             this.a = null;
             this.b = null;
@@ -97,13 +101,14 @@ function Calculator() {
     }
 
     this.handleKeyPress = function(e) {
-        if (calculator.keys.includes(e.key)) {
-            calculator.handleButtonPress(e.key);
-        } else if (e.key === "Backspace") {
+        console.log(e.key);
+            
+         if (e.key === "Backspace") {
             calculator.handleButtonPress("backspace");
         } else if (e.key === "Enter") {
-            calculator.handleButtonPress("backspace");
+            calculator.handleButtonPress("=");
         }
+        calculator.handleButtonPress(e.key);
     }
 
     this.calculate = function() {
