@@ -86,10 +86,16 @@ function Calculator(keys) {
             }
             return;
         } else if (buttonStr in this.operators) { //operator pressed
-            if (this.a !== null && this.op !== null && this.b !== null) {
-                this.calculate();
-            } else {
-                this.op = buttonStr;
+            if (this.a === null && buttonStr === "-") {
+                this.a = this.updateNumber(this.a, buttonStr); 
+                return;
+            }
+            if (this.op === null) {
+                this.op = buttonStr; 
+                return;
+            }
+            if (this.b === null && buttonStr === "-") {
+                this.b = this.updateNumber(this.b, buttonStr);
                 return;
             }
         } else if (this.a ===  null || this.op === null) {
