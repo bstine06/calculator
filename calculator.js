@@ -67,10 +67,11 @@ function Calculator(keys) {
 
     this.handleButtonPress = function(buttonStr) {
         const thisKey = document.querySelector(`div[data-key="${buttonStr}"]`);
+        if (thisKey === null) return;
         thisKey.classList.add('pressing');
         setTimeout(function() {
             thisKey.classList.remove('pressing');
-          }, 200);
+        }, 200);
         if (buttonStr === "clear") {
             this.a = null;
             this.b = null;
@@ -101,8 +102,6 @@ function Calculator(keys) {
     }
 
     this.handleKeyPress = function(e) {
-        console.log(e.key);
-            
          if (e.key === "Backspace") {
             calculator.handleButtonPress("backspace");
         } else if (e.key === "Enter") {
